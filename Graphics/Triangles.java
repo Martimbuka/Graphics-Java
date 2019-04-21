@@ -66,7 +66,7 @@ public class Triangles {
         sideLabel.setBounds(35, 5, 150, 23);
         controlPanel.add(sideLabel);
 
-        JTextField sideField = new JTextField();
+        JTextField sideField = new JTextField("200");
         sideField.setBounds(10,30,160,23);
         sideField.setHorizontalAlignment(JTextField.CENTER);
         controlPanel.add(sideField);
@@ -75,7 +75,7 @@ public class Triangles {
         coordOneLabel.setBounds(40, 65, 150, 23);
         controlPanel.add(coordOneLabel);
 
-        JTextField coord_one = new JTextField();
+        JTextField coord_one = new JTextField("40");
         coord_one.setBounds(10,90,160, 23);
         coord_one.setHorizontalAlignment(JTextField.CENTER);
         controlPanel.add(coord_one);
@@ -84,7 +84,7 @@ public class Triangles {
         coordTwoLabel.setBounds(40, 125, 150, 23);
         controlPanel.add(coordTwoLabel);
 
-        JTextField coord_two = new JTextField();
+        JTextField coord_two = new JTextField("250");
         coord_two.setBounds(10,150,160, 23);
         coord_two.setHorizontalAlignment(JTextField.CENTER);
         controlPanel.add(coord_two);
@@ -120,45 +120,38 @@ public class Triangles {
                     showMessageDialog(null, "Невалидни данни", "Грешка", JOptionPane.WARNING_MESSAGE);
                 }
 
-                int sideSize = 1;
-                boolean first = true;
+                int resizebleNum = 1;
+                boolean first = true, type = true;
                 while(countTriangles != 0)
                 {
-                    sideSize *= 2;
-                    if(countTriangles % 2 != 0) {
-                        if(first)
-                        {
-                            first = false;
-                            x1 = x0 + (sideInt / (sideSize / 2));
+                    resizebleNum *= 2;
+                    if(type == true && first == false) {
+
+                            x0 = x0 + (sideInt / resizebleNum);
+                            y0 = y0 - (int) (((Math.sqrt((Math.pow(sideInt, 2)) - (Math.pow(sideInt / 2, 2)))) / resizebleNum) * 2);
+                            x1 = x0 + (sideInt / (resizebleNum / 2));
                             y1 = y0;
-                            x2 = x1 - (sideInt / sideSize);
-                            y2 = y1 + (int) (((Math.sqrt((Math.pow(sideInt, 2)) - (Math.pow(sideInt / 2, 2)))) / sideSize) * 2);
-                        }
-                        else {
-                            x0 = x0 + (sideInt / sideSize);
-                            y0 = y0 - (int) (((Math.sqrt((Math.pow(sideInt, 2)) - (Math.pow(sideInt / 2, 2)))) / sideSize) * 2);
-                            x1 = x0 + (sideInt / (sideSize / 2));
-                            y1 = y0;
-                            x2 = x1 - (sideInt / sideSize);
-                            y2 = y1 + (int) (((Math.sqrt((Math.pow(sideInt, 2)) - (Math.pow(sideInt / 2, 2)))) / sideSize) * 2);
-                        }
+                            x2 = x1 - (sideInt / resizebleNum);
+                            y2 = y1 + (int) (((Math.sqrt((Math.pow(sideInt, 2)) - (Math.pow(sideInt / 2, 2)))) / resizebleNum) * 2);
+                            type = false;
                     }
                     else{
                         if(first)
                         {
                             first = false;
-                            x1 = x0 + (sideInt / sideSize);
-                            y1 = y0 - (int)(((Math.sqrt((Math.pow(sideInt,2)) - (Math.pow(sideInt/2,2))))/sideSize)*2);
-                            x2 = x0 + (sideInt / (sideSize/2));
+                            x1 = x0 + (sideInt / resizebleNum);
+                            y1 = y0 - (int)(((Math.sqrt((Math.pow(sideInt,2)) - (Math.pow(sideInt/2,2))))/resizebleNum)*2);
+                            x2 = x0 + (sideInt / (resizebleNum/2));
                             y2 = y0;
                         }
                         else{
-                        x0 = x0 + (sideInt / sideSize);
-                        y0 = y0 + (int)(((Math.sqrt((Math.pow(sideInt,2)) - (Math.pow(sideInt/2,2))))/sideSize)*2);
-                        x1 = x0 + (sideInt / sideSize);
-                        y1 = y0 - (int)(((Math.sqrt((Math.pow(sideInt,2)) - (Math.pow(sideInt/2,2))))/sideSize)*2);
-                        x2 = x0 + (sideInt / (sideSize/2));
+                        x0 = x0 + (sideInt / resizebleNum);
+                        y0 = y0 + (int)(((Math.sqrt((Math.pow(sideInt,2)) - (Math.pow(sideInt/2,2))))/resizebleNum)*2);
+                        x1 = x0 + (sideInt / resizebleNum);
+                        y1 = y0 - (int)(((Math.sqrt((Math.pow(sideInt,2)) - (Math.pow(sideInt/2,2))))/resizebleNum)*2);
+                        x2 = x0 + (sideInt / (resizebleNum/2));
                         y2 = y0;}
+                        type = true;
                     }
 
                     g.drawLine(x0,y0,x1,y1);
